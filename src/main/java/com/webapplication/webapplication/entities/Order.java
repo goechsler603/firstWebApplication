@@ -1,7 +1,7 @@
 package com.webapplication.webapplication.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.webapplication.webapplication.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,6 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
-import java.util.TimeZone;
 
 @Entity
 @AllArgsConstructor
@@ -19,6 +18,7 @@ import java.util.TimeZone;
 @Data
 @Table(name = "tb_order")
 public class Order implements Serializable {
+
     @Serial
     private static final Long serialVersionUID = 1L;
 
@@ -29,10 +29,28 @@ public class Order implements Serializable {
     @JsonFormat (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant date;
 
-
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
+
+    private Integer orderStatus;
+
+    public Order(Long id, Instant date, OrderStatus orderStatus, User client) {
+        this.id = id;
+        this.date = date;
+        setOrderStatus(orderStatus);
+        this.client = client;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valuesOf(orderStatus);
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if (orderStatus != null) {
+            this.orderStatus = orderStatus.getCode();
+        }
+    }
 
     @Override
     public boolean equals(Object o) {
