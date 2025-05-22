@@ -1,8 +1,10 @@
 package com.webapplication.webapplication.config;
 
+import com.webapplication.webapplication.entities.Category;
 import com.webapplication.webapplication.entities.Order;
 import com.webapplication.webapplication.entities.User;
 import com.webapplication.webapplication.entities.enums.OrderStatus;
+import com.webapplication.webapplication.repositories.CategoryRepository;
 import com.webapplication.webapplication.repositories.OrderRepository;
 import com.webapplication.webapplication.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,7 @@ public class TestConfig implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -36,6 +39,12 @@ public class TestConfig implements CommandLineRunner {
         Order o3 = new Order(null, Instant.parse("2025-05-22T15:21:22Z"),OrderStatus.SHIPPED, u1);
 
         orderRepository.saveAll(Arrays.asList(o1,o2,o3));
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 
 
     }
