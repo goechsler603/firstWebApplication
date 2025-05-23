@@ -2,10 +2,12 @@ package com.webapplication.webapplication.config;
 
 import com.webapplication.webapplication.entities.Category;
 import com.webapplication.webapplication.entities.Order;
+import com.webapplication.webapplication.entities.Product;
 import com.webapplication.webapplication.entities.User;
 import com.webapplication.webapplication.entities.enums.OrderStatus;
 import com.webapplication.webapplication.repositories.CategoryRepository;
 import com.webapplication.webapplication.repositories.OrderRepository;
+import com.webapplication.webapplication.repositories.ProductRepository;
 import com.webapplication.webapplication.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ public class TestConfig implements CommandLineRunner {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -40,12 +43,44 @@ public class TestConfig implements CommandLineRunner {
 
         orderRepository.saveAll(Arrays.asList(o1,o2,o3));
 
-        Category cat1 = new Category(null, "Electronics");
-        Category cat2 = new Category(null, "Books");
-        Category cat3 = new Category(null, "Computers");
+        Category cat1 = Category.builder()
+                .id(null)
+                .name("Eletronics")
+                .build();
+        Category cat2 = Category.builder()
+                .id(null)
+                .name("Books")
+                .build();
+        Category cat3 =Category.builder()
+                .id(null)
+                .name("Computers")
+                .build();
 
         categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 
+        Product p1 = Product.builder()
+                .id(null)
+                .name("Smartphone")
+                .description("S21")
+                .price(43.)
+                .imgUrl("")
+                .build();
+        Product p2 = Product.builder()
+                .id(null)
+                .name("Notebook Asus")
+                .description("I7 sem placa de video 16gb RAM")
+                .price(40.)
+                .imgUrl("")
+                .build();
+        Product p3 = Product.builder()
+                .id(null)
+                .name("One piece")
+                .description("O melhor de todos")
+                .price(50.)
+                .imgUrl("")
+                .build();
+
+        productRepository.saveAll(Arrays.asList(p1,p2,p3));
 
     }
 }

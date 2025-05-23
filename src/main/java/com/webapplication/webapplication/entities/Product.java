@@ -12,30 +12,35 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_category")
+@Data
+@Entity
 @Builder
-public class Category implements Serializable {
-
+@Table (name = "product_id")
+@SecondaryTable(name = "product_category")
+public class Product implements Serializable {
     @Serial
     private static final Long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
 
-    @ManyToMany(mappedBy = "categories")
-    private Set<Product> products = new HashSet<>();
+    private String name;
+    private String description;
+    private Double price;
+    private String imgUrl;
+
+    @ManyToMany
+    @JoinTable(name = "category_id")
+    private Set<Category> categories = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return Objects.equals(id, category.id);
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
     }
 
     @Override
@@ -43,3 +48,5 @@ public class Category implements Serializable {
         return Objects.hashCode(id);
     }
 }
+
+
