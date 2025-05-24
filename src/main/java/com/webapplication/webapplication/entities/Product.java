@@ -1,10 +1,7 @@
 package com.webapplication.webapplication.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -17,8 +14,7 @@ import java.util.Set;
 @Data
 @Entity
 @Builder
-@Table (name = "product_id")
-@SecondaryTable(name = "product_category")
+@Table (name = "tb_product")
 public class Product implements Serializable {
     @Serial
     private static final Long serialVersionUID = 1L;
@@ -32,8 +28,12 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
+    @Builder.Default
+    @Getter
     @ManyToMany
-    @JoinTable(name = "category_id")
+    @JoinTable(name = "tb_product_category",
+    joinColumns = @JoinColumn(name = "product_id"),
+    inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
     @Override
