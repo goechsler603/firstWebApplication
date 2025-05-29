@@ -1,14 +1,8 @@
 package com.webapplication.webapplication.config;
 
-import com.webapplication.webapplication.entities.Category;
-import com.webapplication.webapplication.entities.Order;
-import com.webapplication.webapplication.entities.Product;
-import com.webapplication.webapplication.entities.User;
+import com.webapplication.webapplication.entities.*;
 import com.webapplication.webapplication.entities.enums.OrderStatus;
-import com.webapplication.webapplication.repositories.CategoryRepository;
-import com.webapplication.webapplication.repositories.OrderRepository;
-import com.webapplication.webapplication.repositories.ProductRepository;
-import com.webapplication.webapplication.repositories.UserRepository;
+import com.webapplication.webapplication.repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -28,6 +22,7 @@ public class TestConfig implements CommandLineRunner {
     private final OrderRepository orderRepository;
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -62,14 +57,14 @@ public class TestConfig implements CommandLineRunner {
                 .id(null)
                 .name("Smartphone")
                 .description("S21")
-                .price(43.)
+                .price(1500.)
                 .imgUrl("")
                 .build();
         Product p2 = Product.builder()
                 .id(null)
                 .name("Notebook Asus")
                 .description("I7 sem placa de video 16gb RAM")
-                .price(40.)
+                .price(4000.)
                 .imgUrl("")
                 .build();
         Product p3 = Product.builder()
@@ -88,6 +83,13 @@ public class TestConfig implements CommandLineRunner {
         p3.getCategories().add(cat2);
 
         productRepository.saveAll(Arrays.asList(p1,p2,p3));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 1, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p2, 4, p2.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p2, 2, p2.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p3, 3, p3.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
 
     }
 }

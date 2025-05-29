@@ -1,9 +1,12 @@
 package com.webapplication.webapplication.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.webapplication.webapplication.entities.pk.OrderItemPk;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,17 +14,20 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Builder
+@AllArgsConstructor
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_Order_Item")
+@Table(name = "tb_order_item")
 public class OrderItem implements Serializable {
 
     @Serial
     private static final Long serialVersionUID = 1L;
 
     @EmbeddedId
-    private OrderItemPk id;
+    @JsonIgnore
+    private OrderItemPk id = new OrderItemPk();
 
     private Integer quantity;
     private Double price;
@@ -33,6 +39,7 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
