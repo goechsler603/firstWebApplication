@@ -1,5 +1,6 @@
 package com.webapplication.webapplication.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,11 +37,24 @@ public class Product implements Serializable {
     inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
         return Objects.equals(id, product.id);
+    }
+
+
+    public Set<Order>  getOrders() {
+        Set<Order> listOrders = new HashSet<>();
+        for (OrderItem orderItem : items) {
+            listOrders.add(orderItem.getOrder());
+        }
+        return listOrders;
     }
 
     @Override

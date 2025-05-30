@@ -1,6 +1,7 @@
 package com.webapplication.webapplication.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.webapplication.webapplication.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,7 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
+
 
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
