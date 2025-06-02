@@ -48,7 +48,7 @@ public class Product implements Serializable {
         return Objects.equals(id, product.id);
     }
 
-
+    @JsonIgnore
     public Set<Order>  getOrders() {
         Set<Order> listOrders = new HashSet<>();
         for (OrderItem orderItem : items) {
