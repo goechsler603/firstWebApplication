@@ -64,7 +64,7 @@ public class TestConfig implements CommandLineRunner {
                 .id(null)
                 .name("Notebook Asus")
                 .description("I7 sem placa de video 16gb RAM")
-                .price(4000.)
+                .price(2500.)
                 .imgUrl("")
                 .build();
         Product p3 = Product.builder()
@@ -85,7 +85,7 @@ public class TestConfig implements CommandLineRunner {
         productRepository.saveAll(Arrays.asList(p1,p2,p3));
 
         OrderItem oi1 = new OrderItem(o1, p1, 1, p1.getPrice());
-        OrderItem oi2 = new OrderItem(o1, p2, 4, p2.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p2, 2, p2.getPrice());
         OrderItem oi3 = new OrderItem(o2, p2, 2, p2.getPrice());
         OrderItem oi4 = new OrderItem(o3, p3, 3, p3.getPrice());
 

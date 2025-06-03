@@ -1,6 +1,7 @@
 package com.webapplication.webapplication.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +27,7 @@ public class Payment implements Serializable {
     private Long id;
     private Instant mement;
 
-
+    @JsonIgnore
     @OneToOne
     @MapsId
     private Order order;
